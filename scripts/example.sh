@@ -65,7 +65,8 @@ do
         --language $language \
         --audio_dir $infer_output_dir/audio \
         --reference $infer_output_dir/gt_text.jsonl \
-        --openai_api_key $openai_api_key
+        --openai_api_key $openai_api_key \
+        --gemini_api_key $gemini_api_key
     fi
 
 done

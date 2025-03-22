@@ -54,7 +54,7 @@ do
 
     # output dir
     infer_output_dir=${log_dir}/eval/${level}/${dataset_name}
-    eval_output_dir=$infer_output_dir/eval_with_asr
+    eval_output_dir=$infer_output_dir/eval
 
     source /home/visitor/miniconda3/etc/profile.d/conda.sh
     # put your env name here, this env depends on the model you are testing
@@ -117,7 +117,7 @@ do
 
     # output dir
     infer_output_dir=${log_dir}/eval/${level}/${dataset_name}
-    eval_output_dir=$infer_output_dir/eval_with_asr
+    eval_output_dir=$infer_output_dir/eval
 
     source /home/visitor/miniconda3/etc/profile.d/conda.sh
     # put your env name here, this env depends on the model you are testing

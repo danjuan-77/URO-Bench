@@ -31,6 +31,9 @@ uro_env_name=uro
 # OpenAI api key, e.g.
 openai_api_key=
 
+# Gemini api key, e.g.
+gemini_api_key=
+
 # choose the datasets you want to test on your SDM, single-round
 datasets=(
     "AlpacaEval 199 open basic en"

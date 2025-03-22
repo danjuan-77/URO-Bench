@@ -9,6 +9,7 @@ import metrics.mark_gpt as mark_gpt
 import metrics.mark_wer as mark_wer
 import metrics.mark_utmos as mark_utmos
 import metrics.mark_emotion as mark_emotion
+import metrics.mark_gemini as mark_gemini
 
 
 def main():
@@ -61,6 +62,9 @@ def main():
     parser.add_argument(
         "--openai_api_key", type=str, required=False, help="openai api key"
     )
+    parser.add_argument(
+        "--gemini_api_key", type=str, required=False, help="gemini api key"
+    )
     # parser.add_argument("--answer_contrast", type=str, required=False)
     args = parser.parse_args()
 
@@ -83,6 +87,8 @@ def main():
         mark_wer.eval_repeat(args)
     elif args.mode == "ge":
         mark_emotion.eval_ge(args)
+    elif args.mode == "srt":
+        mark_gemini.eval(args)
     else:
         mark_gpt.eval(args)
 

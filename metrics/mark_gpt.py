@@ -959,7 +959,7 @@ def eval(args):
                 prompt = template.replace("{question}", item["question"])
                 completion = client.chat.completions.create(
                     model="gpt-4o-audio-preview",
-                    modalities=["text", "audio"],
+                    modalities=["text"],
                     audio={"voice": "alloy", "format": "wav"},
                     messages=[
                         {
@@ -978,6 +978,10 @@ def eval(args):
                     ],
                 )
                 score = completion.choices[0].message.content
+                try:
+                    score = int(score)
+                except:
+                    score = 0
                 item["score"] = score
                 ot.write(item)
                 sum_score += int(item["score"])
