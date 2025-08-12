@@ -205,4 +205,4 @@ done
 # echo "评估完成！"
 
 
-# nohup bash ./scripts/vocalnet-asr-eval-llama8b-base.sh > /share/nlp/tuwenming/projects/UltraVoice_dev/logs/VocalNet-Llama32-8B-Base/eval.log 2>&1 &
+# nohup bash ./scripts/vocalnet-asr-eval-llama8b-base.sh > /share/nlp/tuwenming/projects/UltraVoice_dev/logs/VocalNet-Llama32-8B-Base-eval-$(date +%Y%m%d%H%M%S).log 2>&1 &
