@@ -91,46 +91,46 @@ do
         --dataset $dataset_path \
         --output_dir $infer_output_dir
 
-    # 激活URO-Bench环境进行ASR和评分
-    source ${conda_dir}
-    conda activate ${uro_env_name}
+    # # 激活URO-Bench环境进行ASR和评分
+    # source ${conda_dir}
+    # conda activate ${uro_env_name}
     
-    # ASR转录
-    python $code_dir/asr_for_eval.py \
-        --input_dir $infer_output_dir/audio \
-        --model_dir $whisper_dir \
-        --output_dir $infer_output_dir \
-        --language $language \
-        --number $sample_number
+    # # ASR转录
+    # python $code_dir/asr_for_eval.py \
+    #     --input_dir $infer_output_dir/audio \
+    #     --model_dir $whisper_dir \
+    #     --output_dir $infer_output_dir \
+    #     --language $language \
+    #     --number $sample_number
 
-    # 评分
-    if [[ ${eval_mode} == "open" ]]; then
-        python $code_dir/mark.py \
-        --mode $eval_mode \
-        --question $infer_output_dir/question_text.jsonl \
-        --answer $infer_output_dir/asr_text.jsonl \
-        --answer_text $infer_output_dir/pred_text.jsonl \
-        --output_dir $eval_output_dir \
-        --dataset $dataset_name \
-        --dataset_path $dataset_path \
-        --language $language \
-        --audio_dir $infer_output_dir/audio \
-        --openai_api_key $openai_api_key
-    else
-        python $code_dir/mark.py \
-        --mode $eval_mode \
-        --question $infer_output_dir/question_text.jsonl \
-        --answer $infer_output_dir/asr_text.jsonl \
-        --answer_text $infer_output_dir/pred_text.jsonl \
-        --output_dir $eval_output_dir \
-        --dataset $dataset_name \
-        --dataset_path $dataset_path \
-        --language $language \
-        --audio_dir $infer_output_dir/audio \
-        --reference $infer_output_dir/gt_text.jsonl \
-        --openai_api_key $openai_api_key \
-        --gemini_api_key $gemini_api_key
-    fi
+    # # 评分
+    # if [[ ${eval_mode} == "open" ]]; then
+    #     python $code_dir/mark.py \
+    #     --mode $eval_mode \
+    #     --question $infer_output_dir/question_text.jsonl \
+    #     --answer $infer_output_dir/asr_text.jsonl \
+    #     --answer_text $infer_output_dir/pred_text.jsonl \
+    #     --output_dir $eval_output_dir \
+    #     --dataset $dataset_name \
+    #     --dataset_path $dataset_path \
+    #     --language $language \
+    #     --audio_dir $infer_output_dir/audio \
+    #     --openai_api_key $openai_api_key
+    # else
+    #     python $code_dir/mark.py \
+    #     --mode $eval_mode \
+    #     --question $infer_output_dir/question_text.jsonl \
+    #     --answer $infer_output_dir/asr_text.jsonl \
+    #     --answer_text $infer_output_dir/pred_text.jsonl \
+    #     --output_dir $eval_output_dir \
+    #     --dataset $dataset_name \
+    #     --dataset_path $dataset_path \
+    #     --language $language \
+    #     --audio_dir $infer_output_dir/audio \
+    #     --reference $infer_output_dir/gt_text.jsonl \
+    #     --openai_api_key $openai_api_key \
+    #     --gemini_api_key $gemini_api_key
+    # fi
 
     echo "完成数据集: ${dataset_name}"
 done
@@ -169,37 +169,37 @@ do
         --dataset $dataset_path \
         --output_dir $infer_output_dir
 
-    # 激活URO-Bench环境进行ASR和评分
-    source ${conda_dir}
-    conda activate ${uro_env_name}
+    # # 激活URO-Bench环境进行ASR和评分
+    # source ${conda_dir}
+    # conda activate ${uro_env_name}
     
-    # ASR转录
-    python $code_dir/asr_for_eval.py \
-        --input_dir $infer_output_dir \
-        --model_dir $whisper_dir \
-        --output_dir $infer_output_dir \
-        --language $language \
-        --number $sample_number \
-        --dataset $dataset_path \
-        --multi
+    # # ASR转录
+    # python $code_dir/asr_for_eval.py \
+    #     --input_dir $infer_output_dir \
+    #     --model_dir $whisper_dir \
+    #     --output_dir $infer_output_dir \
+    #     --language $language \
+    #     --number $sample_number \
+    #     --dataset $dataset_path \
+    #     --multi
 
-    # 评分
-    python $code_dir/mark.py \
-    --mode $eval_mode \
-    --question $infer_output_dir/asr_text.jsonl \
-    --answer $infer_output_dir/asr_text.jsonl \
-    --answer_text $infer_output_dir/output_with_text.jsonl \
-    --output_dir $eval_output_dir \
-    --dataset $dataset_name \
-    --dataset_path $dataset_path \
-    --language $language \
-    --audio_dir $infer_output_dir \
-    --openai_api_key $openai_api_key
+    # # 评分
+    # python $code_dir/mark.py \
+    # --mode $eval_mode \
+    # --question $infer_output_dir/asr_text.jsonl \
+    # --answer $infer_output_dir/asr_text.jsonl \
+    # --answer_text $infer_output_dir/output_with_text.jsonl \
+    # --output_dir $eval_output_dir \
+    # --dataset $dataset_name \
+    # --dataset_path $dataset_path \
+    # --language $language \
+    # --audio_dir $infer_output_dir \
+    # --openai_api_key $openai_api_key
 
     echo "完成多轮对话数据集: ${dataset_name}"
 done
 
-# 总结评估结果
-echo "开始生成评估总结..."
-python $code_dir/evaluate.py --eval_dir ${log_dir}/eval
-echo "评估完成！"
+# # 总结评估结果
+# echo "开始生成评估总结..."
+# python $code_dir/evaluate.py --eval_dir ${log_dir}/eval
+# echo "评估完成！"
