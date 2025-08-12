@@ -5,6 +5,7 @@ export HF_ENDPOINT=https://hf-mirror.com
 # VocalNet模型路径配置
 export VOCALNET_MODEL="/share/nlp/tuwenming/models/VocalNet/VocalNet-1B/"        # VocalNet模型路径，需要根据实际情况填写
 export COSYVOICE_MODEL="/share/nlp/tuwenming/models/CosyVoice/CosyVoice2-0.5B-old"       # CosyVoice2-0.5B模型路径，需要根据实际情况填写
+export PROMPT_SPEECH="/share/nlp/tuwenming/projects/URO-Bench/examples/VocalNet-test/omni_speech/infer/alloy.wav"
 
 # code dir
 model_name=VocalNet
