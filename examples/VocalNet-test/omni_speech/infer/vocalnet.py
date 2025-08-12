@@ -5,7 +5,6 @@ import os
 from omni_speech.datasets.preprocess import preprocess_llama_3_v1, preprocess_qwen_2_5_v1
 import whisper
 import numpy as np
-import sys
 from hyperpyyaml import load_hyperpyyaml
 from functools import partial
 from cosyvoice.utils.file_utils import load_wav
@@ -19,15 +18,14 @@ import onnxruntime
 import torchaudio.compliance.kaldi as kaldi
 import re
 import argparse
-from tqdm import tqdm
 
 
-COSYVOICE_MODEL=""   ## CosyVoice2-0.5B       i.e. /workspace/CosyVoice/pretrained_models/CosyVoice2-0.5B-VocalNet
-VOCALNET_MODEL = ""
+# COSYVOICE_MODEL=""   ## CosyVoice2-0.5B       i.e. /workspace/CosyVoice/pretrained_models/CosyVoice2-0.5B-VocalNet
+# VOCALNET_MODEL = ""
 # PROMPT_SPEECH="./omni_speech/infer/common_voice_en_2586258.wav"   
-PROMPT_SPEECH="./omni_speech/infer/cn_prompt.wav"   ## common_voice_en_2586258.wav
+# PROMPT_SPEECH="./omni_speech/infer/cn_prompt.wav"   ## common_voice_en_2586258.wav
 try:
-    import ttsfrd
+    import ttsfrd  # type: ignore
     use_ttsfrd = True
 except ImportError:
     print("failed to import ttsfrd, use WeTextProcessing instead")
@@ -209,7 +207,7 @@ class CosyvoiceVocoder:
             yield model_output
 
 class VocalNetModel:
-    def __init__(self, model_name_or_path: str, vocoder_path: str = COSYVOICE_MODEL, s2s: bool = True, **kwargs):
+    def __init__(self, model_name_or_path: str, vocoder_path: str , s2s: bool = True, **kwargs):
         self.s2s = s2s
         self.model_name_or_path = model_name_or_path
         self.empty = True
@@ -254,7 +252,7 @@ class VocalNetModel:
 
         self.cosy_vocoder = CosyvoiceVocoder(frontend=frontend, model=model)
 
-        prompt_wav = PROMPT_SPEECH
+        prompt_wav = os.getenv("PROMPT_SPEECH")
         prompt_sr = 16000 
 
         prompt_speech_16k = self.postprocess(load_wav(prompt_wav, prompt_sr))
@@ -295,7 +293,8 @@ class VocalNetModel:
         "infer_messages": [[{'role': 'user', 'content': '<speech>', 'path': ./OpenAudioBench/eval_datas/alpaca_eval/audios/alpaca_eval_198.mp3'}]
         """
 
-        audio_path = messages[0]['path']
+        audio_message = messages[0]
+        audio_path = audio_message['path']
         speech = whisper.load_audio(audio_path)
         
         if self.model.config.speech_encoder_type == "glm4voice":
@@ -310,7 +309,17 @@ class VocalNetModel:
             speech_length = round(raw_len / padding_len * 3000 + 0.5)
             speech_length = torch.LongTensor([speech_length])
         
-        conversation = [{"from": "human", "value": "<speech>", "path": f"{audio_path}"}]
+        # Build conversation with optional history
+        history = audio_message.get('history', []) or []
+        # Keep only valid pairs
+        sanitized_history = []
+        for item in history:
+            frm = item.get('from')
+            val = item.get('value')
+            if isinstance(frm, str) and isinstance(val, str) and frm in ("human", "gpt"):
+                sanitized_history.append({"from": frm, "value": val})
+
+        conversation = sanitized_history + [{"from": "human", "value": "<speech>"}]
         
         if 'qwen' in self.model_name_or_path.lower():
             input_ids = preprocess_qwen_2_5_v1([conversation], self.tokenizer, True, 4096)['input_ids']
@@ -323,7 +332,6 @@ class VocalNetModel:
         input_ids = input_ids.to(device='cuda', non_blocking=True)
         speech_tensor = speech.to(dtype=torch.float16, device='cuda', non_blocking=True)
         speech_length = speech_length.to(device='cuda', non_blocking=True)
-        speedup_ratio = None
         with torch.inference_mode():
             if self.s2s:
                 outputs = self.model.generate(
@@ -392,7 +400,7 @@ if __name__ == "__main__":
 
     audio_messages = [{"role": "user", "content": "<speech>","path": args.query_audio}]
     print("Initialized vocalnet")
-    vocalnet = VocalNetModel(VOCALNET_MODEL, s2s=args.s2s)
+    vocalnet = VocalNetModel(os.getenv("VOCALNET_MODEL"), s2s=args.s2s)
     vocalnet.__initilize__()
     vocalnet.set_audio_dir(args.save_dir)
 
