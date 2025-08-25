@@ -10,7 +10,7 @@ export PROMPT_SPEECH="/share/nlp/tuwenming/projects/URO-Bench/examples/VocalNet-
 # code dir
 model_name=VocalNet
 code_dir="/share/nlp/tuwenming/projects/URO-Bench"                           # URO-Bench代码目录，需要根据实际情况填写
-log_dir="/share/nlp/kangyipeng/infer_results/URO-Bench/VocalNet-Llama32-8B-UltraVoice100k-Clean-Steps3000-SFT"     # 评估结果保存目录，需要根据实际情况填写
+log_dir="/share/nlp/tuwenming/projects/UltraVoice_dev/eval/URO-Bench/VocalNet-Llama32-8B-UltraVoice100k-Clean-Steps3000-SFT"     # 评估结果保存目录，需要根据实际情况填写
 whisper_dir="/share/nlp/tuwenming/models/openai/whisper-large-v3"                 # whisper模型路径，需要根据实际情况填写
 uro_data_dir="/share/nlp/tuwenming/projects/URO-Bench/URO-Bench-data"                  # URO-Bench数据目录，需要根据实际情况填写
 
@@ -205,4 +205,4 @@ done
 # echo "评估完成！"
 
 
-# nohup bash ./scripts/vocalnet-asr-eval-llama8b-sft-2.sh > /share/nlp/kangyipeng/logs/VocalNet-Llama32-8B-SFT-eval-$(date +%Y%m%d%H%M%S).log 2>&1 &
+# nohup bash ./scripts/vocalnet-asr-eval-llama8b-sft-2.sh > /share/nlp/tuwenming/projects/UltraVoice_dev/logs/VocalNet-Llama32-8B-SFT-eval-$(date +%Y%m%d%H%M%S).log 2>&1 &
