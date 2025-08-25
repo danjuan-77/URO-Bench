@@ -1,5 +1,5 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=3
+export CUDA_VISIBLE_DEVICES=2
 export HF_ENDPOINT=https://hf-mirror.com
 
 # VocalNet模型路径配置
@@ -25,15 +25,15 @@ gemini_api_key="sk-proj-1234567890"                                      # Gemin
 
 # 所有单轮对话数据集
 datasets=(
-    "AlpacaEval 199 open basic en"
-    "CommonEval 200 open basic en"
-    "WildchatEval 349 open basic en"
-    "StoralEval 201 semi-open basic en"
-    "Summary 118 semi-open basic en"
-    "TruthfulEval 470 semi-open basic en"
-    "GaokaoEval 303 qa basic en"
-    "Gsm8kEval 582 qa basic en"
-    "MLC 177 qa basic en"
+    # "AlpacaEval 199 open basic en"
+    # "CommonEval 200 open basic en"
+    # "WildchatEval 349 open basic en"
+    # "StoralEval 201 semi-open basic en"
+    # "Summary 118 semi-open basic en"
+    # "TruthfulEval 470 semi-open basic en"
+    # "GaokaoEval 303 qa basic en"
+    # "Gsm8kEval 582 qa basic en"
+    # "MLC 177 qa basic en"
     "Repeat 252 wer basic en"
     # # "AlpacaEval-zh 147 open basic zh"
     # # "Claude-zh 222 open basic zh"
