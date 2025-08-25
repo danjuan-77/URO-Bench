@@ -1,5 +1,5 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=3
 export HF_ENDPOINT=https://hf-mirror.com
 
 # VocalNet模型路径配置
