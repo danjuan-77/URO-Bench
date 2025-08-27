@@ -1,16 +1,16 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=2
+export CUDA_VISIBLE_DEVICES=1
 export HF_ENDPOINT=https://hf-mirror.com
 
 # VocalNet模型路径配置
-export VOCALNET_MODEL="/mnt/buffer/tuwenming/checkpoints/VocalNet/qwen25-7b-instruct-s2s-mtp-ultravoice100k-clean-all-sft-llm-and-decoder/checkpoint-3000"        # VocalNet模型路径，需要根据实际情况填写
+export VOCALNET_MODEL="/mnt/buffer/tuwenming/checkpoints/VocalNet/qwen25-7B-instruct-s2s-mtp-ultravoice100k-clean-all-sft-llm-and-decoder-save-steps200//checkpoint-2400"        # VocalNet模型路径，需要根据实际情况填写
 export COSYVOICE_MODEL="/share/nlp/tuwenming/models/CosyVoice/CosyVoice2-0.5B-old"       # CosyVoice2-0.5B模型路径，需要根据实际情况填写
 export PROMPT_SPEECH="/share/nlp/tuwenming/projects/URO-Bench/examples/VocalNet-test/omni_speech/infer/alloy.wav"
 
 # code dir
 model_name=VocalNet
 code_dir="/share/nlp/tuwenming/projects/URO-Bench"                           # URO-Bench代码目录，需要根据实际情况填写
-log_dir="/share/nlp/tuwenming/projects/UltraVoice_dev/eval/URO-Bench/VocalNet-Qwen25-7B-UltraVoice100k-Clean-Steps3000-SFT"     # 评估结果保存目录，需要根据实际情况填写
+log_dir="/share/nlp/kangyipeng/infer_results/URO-Bench/VocalNet-Qwen25-7B-UltraVoice100k-Clean-Steps2400-SFT"     # 评估结果保存目录，需要根据实际情况填写
 whisper_dir="/share/nlp/tuwenming/models/openai/whisper-large-v3"                 # whisper模型路径，需要根据实际情况填写
 uro_data_dir="/share/nlp/tuwenming/projects/URO-Bench/URO-Bench-data"                  # URO-Bench数据目录，需要根据实际情况填写
 
@@ -59,9 +59,9 @@ datasets=(
     # # "SRT-zh 21 srt pro zh"
     "UnderEmotion-en 137 ue pro en"
     # # "UnderEmotion-zh 79 ue pro zh"
-    # "Multilingual 1108 ml pro en"
-    # "ClothoEval-en 265 qa pro en"
-    # "MuChoEval-en 311 qa pro en"
+    "Multilingual 1108 ml pro en"
+    "ClothoEval-en 265 qa pro en"
+    "MuChoEval-en 311 qa pro en"
 )
 
 # 单轮对话评估
@@ -137,8 +137,8 @@ done
 
 # 多轮对话数据集
 multi_datasets=(
-    # "MtBenchEval-en 190 multi pro en"
-    # "SpeakerAware-en 55 sa pro en"
+    "MtBenchEval-en 190 multi pro en"
+    "SpeakerAware-en 55 sa pro en"
     # "SpeakerAware-zh 49 sa pro zh"
 )
 
